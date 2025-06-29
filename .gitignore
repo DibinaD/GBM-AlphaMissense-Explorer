@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+Data/AlphaMissense_hg19.tsv
+Data/data_mutations.txt
