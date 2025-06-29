@@ -3,26 +3,26 @@ TCGA GBM mutation data (PanCancer Atlas)
 AlphaMissense AI scores for all possible missense variants (DeepMind)
 ClinVar clinical significance annotations
 COSMIC somatic mutation catalog and presents the results in a user-friendly R Shiny interface.
----------------------------------------------------------------------------------------------
-Key Features
-@ AI-driven annotation
+
+@Key Features
+AI-driven annotation
 Leverage AlphaMissense pathogenicity scores (0–1) and class labels (benign/pathogenic).
 
-@ Database validation filters
+Database validation filters
 ClinVar-confirmed pathogenic variants
 COSMIC-listed cancer mutations
 
-@ Interactive exploration
+Interactive exploration
 Multi-gene selection
 Score sliders and checkbox filters
 Real-time table and plot updates
 
-@ Downloadable results
+Downloadable results
 Export filtered mutation sets as CSV
 
-@ Clean, focused data views
+Clean, focused data views
 Essential columns (gene, position, protein change, AI score, clinical tags)
------------------------------------------------------------------------------------------------
+
 GBM-AlphaMissense-Explorer/
 ├── app.R                            # R Shiny app
 ├── data_cleaning_and_annotation.py  # Python script for AlphaMissense merge
@@ -32,7 +32,7 @@ GBM-AlphaMissense-Explorer/
 ├── annotated_with_alphamissense.csv # Processed annotation
 ├── .gitignore                       # large data and temp files
 └── README.md                        # This file
-----------------------------------------------------------------------------------------------
+
 @ Data Download Instructions
 Note: Raw and processed data files are large (>50 MB) and not included in this repo.
 
@@ -46,7 +46,7 @@ Processed annotation CSV
 Run the Python script data_cleaning_and_annotation.py to merge AlphaMissense with TCGA data and produce annotated_with_alphamissense.csv.
 
 Place the raw files in data/ and the processed CSV at the repo root before running the Shiny app.
------------------------------------------------------------------------------------------------
+
 @ Usage
 Select Gene(s): Choose one or more genes to focus on.
 Score Filter: Adjust the pathogenicity score slider to narrow AI predictions.
@@ -55,7 +55,7 @@ ClinVar Only: Show clinically validated mutations.
 COSMIC Only: Show variants listed in the COSMIC database.
 Download: Export your current filter results as CSV.
 Explore tables and interactive plots under different tabs to gain insights.
------------------------------------------------------------------------------------------------
+
 
 
 
