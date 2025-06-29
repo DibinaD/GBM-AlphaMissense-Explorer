@@ -1,34 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
-
 import pandas as pd
-
-
-# In[2]:
-
 
 # Load the MAF file
 maf_path = "C:/Users/dibin/Downloads/My_project/DATA-gbm_tcga_pan_can_atlas_2018/data_mutations.txt"
 
-
-# In[3]:
-
-
 df = pd.read_csv(maf_path, sep="\t", comment="#", low_memory=False)
-
-
-# In[4]:
-
 
 # Peek at first few rows
 df[["Hugo_Symbol", "Variant_Classification", "Tumor_Sample_Barcode"]].head()
-
-
-# In[5]:
-
 
 # High-impact variant types
 high_impact = [
@@ -41,24 +22,12 @@ high_impact = [
 df_filtered = df[df["Variant_Classification"].isin(high_impact)].copy()
 print(f"Filtered mutations: {df_filtered.shape[0]}")
 
-
-# In[6]:
-
-
 df_filtered.to_csv("C:/Users/dibin/Downloads/My_project/DATA-gbm_tcga_pan_can_atlas_2018/TCGA_GBM_filtered_maf.tsv", sep="\t", index=False)
 print("Filtered MAF saved successfully.")
-
-
-# In[7]:
-
 
 gene_counts = df_filtered["Hugo_Symbol"].value_counts().reset_index()
 gene_counts.columns = ["Gene", "Mutation_Count"]
 gene_counts.head(10)
-
-
-# In[8]:
-
 
 mutation_matrix = pd.crosstab(
     df_filtered["Tumor_Sample_Barcode"],
@@ -71,10 +40,6 @@ mutation_matrix = mutation_matrix[top_genes]
 
 mutation_matrix.head()
 
-
-# In[9]:
-
-
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -85,12 +50,6 @@ plt.xlabel("Gene")
 plt.ylabel("Sample")
 plt.tight_layout()
 plt.show()
-
-
-# In[23]:
-
-
-import pandas as pd
 
 # Step 1: Load the full mutation data
 mutation_file = "C:/Users/dibin/Downloads/My_project/DATA-gbm_tcga_pan_can_atlas_2018/data_mutations.txt"
@@ -110,15 +69,10 @@ missense["AA_Change"] = (
 # Step 4: Clean Transcript_ID
 missense["Transcript_ID_clean"] = missense["Transcript_ID"].str.replace(r"\.\d+$", "", regex=True)
 
-# Step 5: Save it (optional)
+# Step 5: Save it 
 missense.to_csv("filtered_missense.csv", index=False)
 print("💾 Saved filtered missense as 'filtered_missense.csv'")
 
-
-# In[24]:
-
-
-import pandas as pd
 from tqdm import tqdm
 
 missense = pd.read_csv("filtered_missense.csv", dtype=str)
@@ -170,10 +124,6 @@ print(f"✅ Annotated variants: {annotated.shape[0]} out of {missense.shape[0]}"
 annotated.to_csv("annotated_with_alphamissense.csv", index=False)
 print("💾 Saved as annotated_with_alphamissense.csv")
 
-
-# In[25]:
-
-
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -194,17 +144,9 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-
-# In[26]:
-
-
 # Show top 10 high-confidence pathogenic mutations
 top_hits = annotated.sort_values(by="am_pathogenicity", ascending=False).head(10)
 top_hits[["Hugo_Symbol", "AA_Change", "Transcript_ID", "am_pathogenicity", "am_class"]]
-
-
-# In[27]:
-
 
 # Filter only pathogenic
 pathogenic = annotated[annotated["am_class"] == "pathogenic"]
@@ -220,10 +162,6 @@ plt.xlabel("Pathogenic Mutation Count")
 plt.tight_layout()
 plt.show()
 
-
-# In[28]:
-
-
 # Load your annotated data again (if needed)
 annotated = pd.read_csv("annotated_with_alphamissense.csv")
 
@@ -238,17 +176,9 @@ print(f"🧬 AI-predicted pathogenic mutations with ClinVar info: {predicted_wit
 clinvar_pathogenic = predicted_with_clinvar[predicted_with_clinvar["CLIN_SIG"].str.contains("Pathogenic", case=False, na=False)]
 print(f"✅ Confirmed Pathogenic by ClinVar: {clinvar_pathogenic.shape[0]}")
 
-
-# In[29]:
-
-
 # How many AI-predicted pathogenic are in COSMIC?
 cosmic_matches = predicted_pathogenic[~predicted_pathogenic["COSMIC"].isna()]
 print(f"💣 Found in COSMIC Cancer DB: {cosmic_matches.shape[0]}")
-
-
-# In[30]:
-
 
 # Drop rows where both SIFT and PolyPhen are missing
 valid_polyphen = predicted_pathogenic[~predicted_pathogenic["PolyPhen"].isna()]
@@ -256,35 +186,6 @@ valid_sift = predicted_pathogenic[~predicted_pathogenic["SIFT"].isna()]
 
 # View agreement between AlphaMissense and PolyPhen
 print(valid_polyphen["PolyPhen"].value_counts())
-
-# You can explore more: how many 'probably_damaging' mutations have high AlphaMissense scores
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
 
 
 
