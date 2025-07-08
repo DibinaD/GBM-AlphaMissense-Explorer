@@ -3,8 +3,9 @@ TCGA GBM mutation data (PanCancer Atlas)
 AlphaMissense AI scores for all possible missense variants (DeepMind)
 ClinVar clinical significance annotations
 COSMIC somatic mutation catalog and presents the results in a user-friendly R Shiny interface.
-
-@Key Features
+-----------------------------------------------------------------------------------------------
+Key Features
+-------------
 AI-driven annotation
 Leverage AlphaMissense pathogenicity scores (0–1) and class labels (benign/pathogenic).
 
@@ -33,7 +34,8 @@ GBM-AlphaMissense-Explorer/
 ├── .gitignore                       # large data and temp files
 └── README.md                        # This file
 
-@ Data Download Instructions
+Data Download Instructions
+--------------------------
 Note: Raw and processed data files are large (>50 MB) and not included in this repo.
 
 AlphaMissense predictions (hg19)
@@ -47,7 +49,8 @@ Run the Python script data_cleaning_and_annotation.py to merge AlphaMissense wit
 
 Place the raw files in data/ and the processed CSV at the repo root before running the Shiny app.
 
-@ Usage
+Usage
+-----------
 Select Gene(s): Choose one or more genes to focus on.
 Score Filter: Adjust the pathogenicity score slider to narrow AI predictions.
 Pathogenic Only: Show only variants classified as pathogenic by AlphaMissense.
